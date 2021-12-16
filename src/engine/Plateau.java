@@ -4,6 +4,10 @@ import chess.ChessController;
 import chess.ChessView;
 
 public class Plateau implements ChessController {
+
+    private int tour;
+    private Case[][] plateau;
+
     @Override
     public void start(ChessView view) {
 
