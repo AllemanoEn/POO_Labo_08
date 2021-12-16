@@ -1,4 +1,4 @@
-package engine;//Voici un test de header 
+package engine;
 
 import engine.pieces.Piece;
 import engine.pieces.Pion;

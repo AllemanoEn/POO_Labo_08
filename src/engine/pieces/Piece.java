@@ -1,4 +1,4 @@
-package engine.pieces;//Voici un test de header 
+package engine.pieces;
 
 import chess.ChessView;
 import chess.PieceType;

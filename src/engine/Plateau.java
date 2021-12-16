@@ -1,4 +1,4 @@
-package engine;//Voici un test de header 
+package engine;
 
 import chess.ChessController;
 import chess.ChessView;
