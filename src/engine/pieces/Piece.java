@@ -1,6 +1,8 @@
 package engine.pieces;//Voici un test de header 
 
 import chess.ChessView;
+import chess.PieceType;
+import chess.PlayerColor;
 import engine.Case;
 
 public abstract class Piece implements ChessView.UserChoice{
@@ -9,7 +11,18 @@ public abstract class Piece implements ChessView.UserChoice{
 
     public abstract String toString();
 
+    PieceType pieceType;
+    PlayerColor color;
+
     MouvementType mouvementType;
+
+    public Piece(PlayerColor color) {
+        this.color = color;
+    }
+
+    public PieceType getPieceType(){return pieceType;}
+
+    public PlayerColor getColor(){return  color;}
 
     @Override
     public String textValue() {

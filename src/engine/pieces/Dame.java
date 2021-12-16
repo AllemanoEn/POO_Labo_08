@@ -1,8 +1,15 @@
 package engine.pieces;//Voici un test de header 
 
+import chess.PieceType;
+import chess.PlayerColor;
 import engine.Case;
 
 public class Dame extends PieceDeplacementStandard{
+    public Dame(PlayerColor color) {
+        super(color);
+        pieceType = PieceType.QUEEN;
+    }
+
     @Override
     public boolean mouvementPossible(Case dest) {
         return false;

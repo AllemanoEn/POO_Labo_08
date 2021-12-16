@@ -17,11 +17,11 @@ public class Case {
     }
 
     public boolean estVide(){
-        return true;
+        return pieceCourante == null;
     }
 
     public void placerPiece(Piece piece){
-
+        pieceCourante = piece;
     }
 
     public Piece supprimerPiece(){
