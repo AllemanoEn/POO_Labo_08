@@ -1,4 +1,4 @@
-package engine;//Voici un test de header 
+package engine;
 
 public enum PlayerColor {
     WHITE,
