@@ -5,6 +5,8 @@ import engine.pieces.Pion;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Case {
+
+
     private final int x;
     private final int y;
 
@@ -20,12 +22,23 @@ public class Case {
         return pieceCourante == null;
     }
 
+    public Piece getPieceCourante() {return pieceCourante;}
+
     public void placerPiece(Piece piece){
         pieceCourante = piece;
     }
 
     public Piece supprimerPiece(){
-        throw new NotImplementedException();
+        Piece p = pieceCourante;
+        pieceCourante = null;
+        return p;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 }

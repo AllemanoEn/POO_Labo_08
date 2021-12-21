@@ -4,15 +4,16 @@ import chess.PieceType;
 import chess.PlayerColor;
 import engine.Case;
 
-public class Tour extends PieceRoquable{
+public class Tour extends PiecePremierDeplacement {
     public Tour(PlayerColor color) {
         super(color);
         pieceType = PieceType.ROOK;
+        distanceDeplacementMax = 10;
     }
 
     @Override
-    public boolean mouvementPossible(Case dest) {
-        return false;
+    public MouvementType mouvementPossible(Case src, Case dest) {
+        return MouvementType.NON_VALIDE;
     }
 
     @Override

@@ -8,11 +8,12 @@ public class Dame extends PieceDeplacementStandard{
     public Dame(PlayerColor color) {
         super(color);
         pieceType = PieceType.QUEEN;
+        distanceDeplacementMax = 10;
     }
 
     @Override
-    public boolean mouvementPossible(Case dest) {
-        return false;
+    public MouvementType mouvementPossible(Case src, Case dest) {
+        return MouvementType.NON_VALIDE;
     }
 
     @Override

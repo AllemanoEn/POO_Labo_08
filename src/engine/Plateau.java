@@ -37,7 +37,37 @@ public class Plateau implements ChessController {
 
     @Override
     public boolean move(int fromX, int fromY, int toX, int toY) {
-        return false;
+        Case caseFrom = plateau[fromX][fromY];
+        Case caseTo = plateau[toX][toY];
+
+        if (caseFrom.estVide()){
+            return false;
+        }
+
+        // Piece deplacee
+        Piece p = caseFrom.getPieceCourante();
+
+        // Permet de savoir quel couleur doit jouer
+        if (tour % 2 == 1 && p.getColor() != PlayerColor.WHITE || tour % 2 == 0 && p.getColor() != PlayerColor.BLACK){
+            return false;
+        }
+
+        if (p.mouvementPossible(caseFrom,caseTo) == MouvementType.NON_VALIDE){
+            return false;
+        }
+
+        //Il faudrait utiliser la méthode "déplacer" de la pièce ???
+
+        caseFrom.supprimerPiece();
+        caseTo.placerPiece(p);
+
+        view.displayMessage("");
+        view.removePiece(fromX,fromY);
+        view.putPiece(p.getPieceType(),p.getColor(),toX,toY);
+
+        tour++;
+
+        return true;
     }
 
     @Override
@@ -68,7 +98,6 @@ public class Plateau implements ChessController {
                 )
         );
 
-
         ArrayList<Piece> blackPieces = new ArrayList<>(
                 Arrays.asList(
                         new Tour(PlayerColor.BLACK),
@@ -85,29 +114,18 @@ public class Plateau implements ChessController {
         for (int col = 0; col < DIMENSION; ++col) {
             Piece pionBlanc = new Pion(PlayerColor.WHITE);
             Piece pionNoir = new Pion(PlayerColor.BLACK);
+            Piece pieceBlanche = whitePieces.get(col);
+            Piece pieceNoire = blackPieces.get(col);
+
             plateau[col][1].placerPiece(pionBlanc);
             plateau[col][6].placerPiece(pionNoir);
+            plateau[col][0].placerPiece(pieceBlanche);
+            plateau[col][7].placerPiece(pieceNoire);
 
+            view.putPiece(pieceBlanche.getPieceType(), pieceBlanche.getColor(), col, 0);
+            view.putPiece(pieceNoire.getPieceType(), pieceNoire.getColor(), col, 7);
             view.putPiece(pionBlanc.getPieceType(), pionBlanc.getColor(), col, 1);
             view.putPiece(pionNoir.getPieceType(), pionNoir.getColor(), col, 6);
-        }
-
-
-        for (int i = 0; i < DIMENSION; ++i) {
-            Piece p = whitePieces.get(i);
-
-            plateau[i][0].placerPiece(p);
-
-            view.putPiece(p.getPieceType(), p.getColor(), i, 0);
-        }
-
-
-        for (int i = 0; i < DIMENSION; ++i) {
-            Piece p = blackPieces.get(i);
-
-            plateau[i][7].placerPiece(p);
-
-            view.putPiece(p.getPieceType(), p.getColor(), i, 7);
         }
     }
 }

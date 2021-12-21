@@ -6,7 +6,15 @@ import chess.PlayerColor;
 import engine.Case;
 
 public abstract class Piece implements ChessView.UserChoice{
-    public abstract boolean mouvementPossible(Case dest);
+    //J'ai enlever le abstract de la méthode pour implémenter ce test. Car il devra être executé pour toutes les pièces
+    public MouvementType mouvementPossible(Case src, Case dest){
+        //Permet de ne pas pouvoir manger ces propres pièces
+        if(dest.getPieceCourante() != null && dest.getPieceCourante().getColor() == this.color){
+            return MouvementType.NON_VALIDE;
+        }
+        return MouvementType.CLASSIC;
+    }
+
     public abstract boolean deplacer(Case dest);
 
     public abstract String toString();

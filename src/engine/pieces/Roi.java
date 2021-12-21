@@ -4,15 +4,16 @@ import chess.PieceType;
 import chess.PlayerColor;
 import engine.Case;
 
-public class Roi extends PieceRoquable{
+public class Roi extends PiecePremierDeplacement {
     public Roi(PlayerColor color) {
         super(color);
         pieceType = PieceType.KING;
+        distanceDeplacementMax = 1;
     }
 
     @Override
-    public boolean mouvementPossible(Case dest) {
-        return false;
+    public MouvementType mouvementPossible(Case src, Case dest) {
+        return MouvementType.NON_VALIDE;
     }
 
     @Override
