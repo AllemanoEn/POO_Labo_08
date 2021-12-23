@@ -22,8 +22,6 @@ public abstract class Piece implements ChessView.UserChoice{
     PieceType pieceType;
     PlayerColor color;
 
-    MouvementType mouvementType;
-
     public Piece(PlayerColor color) {
         this.color = color;
     }

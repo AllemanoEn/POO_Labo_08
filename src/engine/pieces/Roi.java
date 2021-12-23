@@ -8,12 +8,17 @@ public class Roi extends PiecePremierDeplacement {
     public Roi(PlayerColor color) {
         super(color);
         pieceType = PieceType.KING;
+        directionType = DirectionType.Tous;
         distanceDeplacementMax = 1;
     }
 
     @Override
     public MouvementType mouvementPossible(Case src, Case dest) {
-        return MouvementType.NON_VALIDE;
+        if (super.mouvementPossible(src,dest) == MouvementType.NON_VALIDE){
+            return MouvementType.NON_VALIDE;
+        }
+
+        return mouvementDirectionnelPossible(src, dest);
     }
 
     @Override

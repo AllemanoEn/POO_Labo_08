@@ -52,7 +52,7 @@ public class Plateau implements ChessController {
             return false;
         }
 
-        if (p.mouvementPossible(caseFrom,caseTo) == MouvementType.NON_VALIDE){
+        if (p.mouvementPossible(caseFrom,caseTo) == MouvementType.NON_VALIDE || !trajectoireLibre(caseFrom, caseTo)){
             return false;
         }
 
@@ -67,6 +67,29 @@ public class Plateau implements ChessController {
 
         tour++;
 
+        return true;
+    }
+    public boolean trajectoireLibre(Case src, Case dest ){
+        int deltaX = Math.abs(src.getX() - dest.getX());
+        int deltaY = Math.abs(src.getY() - dest.getY());
+
+        int dirX = 0;
+        int dirY = 0;
+
+        if(deltaX != 0)
+            dirX = (src.getX() > dest.getX())? -1: 1;
+        if(deltaY != 0)
+            dirY = (src.getY() > dest.getY())? -1: 1;
+
+        int x = src.getX() + dirX;
+        int y = src.getY() + dirY;
+        for(int i = 1; i < Math.max(deltaX, deltaY); i++){
+
+            if(!plateau[x][y].estVide())
+                return false;
+            x+= dirX;
+            y+= dirY;
+        }
         return true;
     }
 

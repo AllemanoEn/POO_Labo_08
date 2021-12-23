@@ -9,6 +9,10 @@ public class Pion extends PiecePremierDeplacement{
         super(color);
         pieceType = PieceType.PAWN;
         distanceDeplacementMax = 1;
+        directionType = DirectionType.Non_defini;
+
+        if(color == PlayerColor.BLACK)
+            distanceDeplacementMax *= (-1);
     }
 
     @Override
@@ -18,20 +22,20 @@ public class Pion extends PiecePremierDeplacement{
             return MouvementType.NON_VALIDE;
         }
 
-        if(!dest.estVide())
+        if(!dest.estVide() && dest.getX() == src.getX())
             return MouvementType.NON_VALIDE;
 
         //Le code en dessous devrait être factoriser pour toutes les pièces qui peuvent se déplacer verticalement et où on doit checker le premier déplacement.
         //Y'a juste le pion qui fait exception puisque sa distanceMax change en fonction de si c'est son premier coup ou pas
-        int deplacementPossible = distanceDeplacementMax;
-        deplacementPossible += premierDeplacement ? 0 : 1;
-        if(color == PlayerColor.BLACK)
-            deplacementPossible *= (-1);
 
-        //La fonction ci-dessous ne fonctionne que pour le premier double déplacement blanc...
-        if(src.getX() == dest.getX() && ((src.getY() + deplacementPossible == dest.getY()) || (src.getY() + deplacementPossible == dest.getY()- (premierDeplacement ? 1 : 0)))){
+        if(src.getX() == dest.getX() && ((src.getY() + distanceDeplacementMax == dest.getY()
+        || this.premierDeplacement && src.getY() + 2*distanceDeplacementMax == dest.getY()))){
             premierDeplacement = false;
             return MouvementType.CLASSIC;
+        }
+        if((src.getX() == dest.getX()+1 || src.getX() == dest.getX()-1)&&src.getY() + distanceDeplacementMax == dest.getY() && !dest.estVide()){
+            premierDeplacement = false;
+            return MouvementType.PRISE;
         }
 
         return MouvementType.NON_VALIDE;

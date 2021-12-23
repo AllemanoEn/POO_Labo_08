@@ -8,12 +8,17 @@ public class Tour extends PiecePremierDeplacement {
     public Tour(PlayerColor color) {
         super(color);
         pieceType = PieceType.ROOK;
+        directionType = DirectionType.Droit;
         distanceDeplacementMax = 10;
     }
 
     @Override
     public MouvementType mouvementPossible(Case src, Case dest) {
-        return MouvementType.NON_VALIDE;
+        if (super.mouvementPossible(src,dest) == MouvementType.NON_VALIDE){
+            return MouvementType.NON_VALIDE;
+        }
+
+        return mouvementDirectionnelPossible(src, dest);
     }
 
     @Override
