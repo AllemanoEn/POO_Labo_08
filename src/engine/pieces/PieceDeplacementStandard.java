@@ -17,7 +17,6 @@ public abstract class PieceDeplacementStandard extends Piece{
         if (super.mouvementPossible(src, dest) == MouvementType.NON_VALIDE){
             return MouvementType.NON_VALIDE;
         }
-
         return MouvementType.CLASSIC;
     }
 
@@ -30,14 +29,10 @@ public abstract class PieceDeplacementStandard extends Piece{
                 return MouvementType.CLASSIC;
         }
 
-
-
         if((directionType == DirectionType.Diagonale || directionType == DirectionType.Tous) && deltaX == deltaY){
             if(deltaX <= distanceDeplacementMax)
                 return MouvementType.CLASSIC;
         }
-
-
 
         return MouvementType.NON_VALIDE;
     }

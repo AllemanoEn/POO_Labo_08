@@ -2,6 +2,7 @@ package engine;
 
 import chess.ChessController;
 import chess.ChessView;
+import chess.PieceType;
 import chess.PlayerColor;
 import engine.pieces.*;
 
@@ -47,7 +48,7 @@ public class Plateau implements ChessController {
         // Piece deplacee
         Piece p = caseFrom.getPieceCourante();
 
-        // Permet de savoir quel couleur doit jouer
+        // Permet de savoir quelle couleur doit jouer
         if (tour % 2 == 1 && p.getColor() != PlayerColor.WHITE || tour % 2 == 0 && p.getColor() != PlayerColor.BLACK){
             return false;
         }
@@ -65,11 +66,16 @@ public class Plateau implements ChessController {
         view.removePiece(fromX,fromY);
         view.putPiece(p.getPieceType(),p.getColor(),toX,toY);
 
+        //On promeut un pion si il se trouve sur la première ou dernière ligne de l'échiquier
+        if ((p.getPieceType() == PieceType.PAWN) && (caseTo.getY() == 0 || caseTo.getY() == DIMENSION-1)){
+            promouvoir(p.getColor(),caseTo);
+        }
+
         tour++;
 
         return true;
     }
-    public boolean trajectoireLibre(Case src, Case dest ){
+    public boolean trajectoireLibre(Case src, Case dest){
         int deltaX = Math.abs(src.getX() - dest.getX());
         int deltaY = Math.abs(src.getY() - dest.getY());
 
@@ -93,7 +99,25 @@ public class Plateau implements ChessController {
         return true;
     }
 
-    @Override
+    private void promouvoir(PlayerColor color, Case dest) {
+        // Les nouvelles pieces possibles
+        Piece dame = new Dame(color);
+        Piece cavalier = new Cavalier(color);
+        Piece tour = new Tour(color);
+        Piece fou = new Fou(color);
+
+        Piece pieceSelectionee = view.askUser("Promotion", "Choisir une pièce pour la promotion",dame,cavalier,tour,fou);
+
+        int x = dest.getX(), y = dest.getY();
+
+        // On effectue la promotion du pion
+        plateau[x][y].supprimerPiece();
+        plateau[x][y].placerPiece(pieceSelectionee);
+        view.removePiece(x, y);
+        view.putPiece(pieceSelectionee.getPieceType(), pieceSelectionee.getColor(),x, y);
+    }
+
+        @Override
     public void newGame() {
         tour = 1;
         echec = false;

@@ -49,6 +49,6 @@ public class Pion extends PiecePremierDeplacement{
 
     @Override
     public String toString() {
-        return null;
+        return "Pion";
     }
 }

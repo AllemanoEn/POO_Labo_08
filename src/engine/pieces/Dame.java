@@ -28,6 +28,6 @@ public class Dame extends PieceDeplacementStandard{
 
     @Override
     public String toString() {
-        return null;
+        return "Dame";
     }
 }

@@ -28,6 +28,6 @@ public class Roi extends PiecePremierDeplacement {
 
     @Override
     public String toString() {
-        return null;
+        return "Roi";
     }
 }

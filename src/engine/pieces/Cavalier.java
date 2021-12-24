@@ -33,6 +33,6 @@ public class Cavalier extends Piece{
 
     @Override
     public String toString() {
-        return null;
+        return "Cavalier";
     }
 }

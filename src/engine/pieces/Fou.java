@@ -28,6 +28,6 @@ public class Fou extends PieceDeplacementStandard{
 
     @Override
     public String toString() {
-        return null;
+        return "Fou";
     }
 }
