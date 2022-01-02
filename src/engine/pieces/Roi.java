@@ -18,9 +18,9 @@ public class Roi extends PiecePremierDeplacement {
             return MouvementType.NON_VALIDE;
         }
 
-        if (mouvementDirectionnelPossible(src, dest) == MouvementType.CLASSIC) {
+        if (mouvementDirectionnelPossible(src, dest) == MouvementType.CLASSIQUE) {
             premierDeplacement = false;
-            return MouvementType.CLASSIC;
+            return MouvementType.CLASSIQUE;
         }
         if (premierDeplacement) {
             if (color == PlayerColor.WHITE) {

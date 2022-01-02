@@ -21,7 +21,7 @@ public class Cavalier extends Piece{
 
         if((deltaX == 1 && deltaY == 2) || (deltaX == 2 && deltaY == 1)){
 
-            return MouvementType.CLASSIC;
+            return MouvementType.CLASSIQUE;
         }
         return MouvementType.NON_VALIDE;
     }

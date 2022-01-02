@@ -12,7 +12,7 @@ public abstract class Piece implements ChessView.UserChoice{
         if(dest.getPieceCourante() != null && dest.getPieceCourante().getColor() == this.color){
             return MouvementType.NON_VALIDE;
         }
-        return MouvementType.CLASSIC;
+        return MouvementType.CLASSIQUE;
     }
 
     public abstract boolean deplacer(Case dest);

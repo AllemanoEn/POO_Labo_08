@@ -33,7 +33,7 @@ public class Pion extends PiecePremierDeplacement{
         if(src.getX() == dest.getX() && ((src.getY() + distanceDeplacementMax == dest.getY()
         || this.premierDeplacement && src.getY() + 2*distanceDeplacementMax == dest.getY()))){
             premierDeplacement = false;
-            return MouvementType.CLASSIC;
+            return MouvementType.CLASSIQUE;
         }
         if((src.getX() == dest.getX()+1 || src.getX() == dest.getX()-1)&&src.getY() + distanceDeplacementMax == dest.getY() && !dest.estVide()){
             premierDeplacement = false;
