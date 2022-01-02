@@ -24,12 +24,12 @@ public abstract class PieceDeplacementStandard extends Piece{
         int deltaX = Math.abs(src.getX() - dest.getX());
         int deltaY = Math.abs(src.getY() - dest.getY());
 
-        if((directionType == DirectionType.Droit || directionType == DirectionType.Tous) && (src.getX() != dest.getX() ^ src.getY() != dest.getY())){
+        if((directionType == DirectionType.DROIT || directionType == DirectionType.TOUS) && (src.getX() != dest.getX() ^ src.getY() != dest.getY())){
             if(Math.max(deltaX, deltaY) <= distanceDeplacementMax)
                 return MouvementType.CLASSIC;
         }
 
-        if((directionType == DirectionType.Diagonale || directionType == DirectionType.Tous) && deltaX == deltaY){
+        if((directionType == DirectionType.DIAGONALE || directionType == DirectionType.TOUS) && deltaX == deltaY){
             if(deltaX <= distanceDeplacementMax)
                 return MouvementType.CLASSIC;
         }

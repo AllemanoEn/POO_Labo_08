@@ -8,7 +8,7 @@ public class Roi extends PiecePremierDeplacement {
     public Roi(PlayerColor color) {
         super(color);
         pieceType = PieceType.KING;
-        directionType = DirectionType.Tous;
+        directionType = DirectionType.TOUS;
         distanceDeplacementMax = 1;
     }
 

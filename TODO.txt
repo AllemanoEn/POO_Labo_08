@@ -1,0 +1,5 @@
+- Le déplacement du cavalier ne fonctionne pas (par exemple si on commence à jouer avec lui)
+- Comment faire si un pion fait deux types de mouvements en même temps ?
+    Ex : Si il mange une pièce sur la dernière ligne on a une prise et une promotion
+    --> Est-ce que le mouvement "prise" est vraiment util ?
+- Piece à une méthode "deplacer" qui n'est jamais utilisée ? Pourtant elle est notée sur l'uml

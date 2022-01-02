@@ -8,7 +8,7 @@ public class Tour extends PiecePremierDeplacement {
     public Tour(PlayerColor color) {
         super(color);
         pieceType = PieceType.ROOK;
-        directionType = DirectionType.Droit;
+        directionType = DirectionType.DROIT;
         distanceDeplacementMax = 10;
     }
 

@@ -9,7 +9,7 @@ public class Dame extends PieceDeplacementStandard{
         super(color);
         pieceType = PieceType.QUEEN;
         distanceDeplacementMax = 10;
-        directionType = DirectionType.Tous;
+        directionType = DirectionType.TOUS;
     }
 
     @Override

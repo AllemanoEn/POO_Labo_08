@@ -53,12 +53,13 @@ public class Plateau implements ChessController {
             return false;
         }
 
-        if (p.mouvementPossible(caseFrom,caseTo) == MouvementType.NON_VALIDE || !trajectoireLibre(caseFrom, caseTo)){
+        MouvementType mouvementTypeActuel = p.mouvementPossible(caseFrom,caseTo);
+
+        if (mouvementTypeActuel == MouvementType.NON_VALIDE || !trajectoireLibre(caseFrom, caseTo)){
             return false;
         }
 
         //Il faudrait utiliser la méthode "déplacer" de la pièce ???
-
         caseFrom.supprimerPiece();
         caseTo.placerPiece(p);
 
@@ -66,8 +67,8 @@ public class Plateau implements ChessController {
         view.removePiece(fromX,fromY);
         view.putPiece(p.getPieceType(),p.getColor(),toX,toY);
 
-        //On promeut un pion si il se trouve sur la première ou dernière ligne de l'échiquier
-        if ((p.getPieceType() == PieceType.PAWN) && (caseTo.getY() == 0 || caseTo.getY() == DIMENSION-1)){
+        //Si le mouvement est une promotion on promeut
+        if (mouvementTypeActuel == MouvementType.PROMOTION){
             promouvoir(p.getColor(),caseTo);
         }
 

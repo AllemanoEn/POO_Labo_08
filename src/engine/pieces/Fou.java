@@ -9,7 +9,7 @@ public class Fou extends PieceDeplacementStandard{
         super(color);
         pieceType = PieceType.BISHOP;
         distanceDeplacementMax = 10;
-        directionType = DirectionType.Diagonale;
+        directionType = DirectionType.DIAGONALE;
     }
 
     @Override

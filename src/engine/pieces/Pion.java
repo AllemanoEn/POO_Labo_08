@@ -9,7 +9,7 @@ public class Pion extends PiecePremierDeplacement{
         super(color);
         pieceType = PieceType.PAWN;
         distanceDeplacementMax = 1;
-        directionType = DirectionType.Non_defini;
+        directionType = DirectionType.NON_DEFINI;
 
         if(color == PlayerColor.BLACK)
             distanceDeplacementMax *= (-1);
@@ -25,8 +25,10 @@ public class Pion extends PiecePremierDeplacement{
         if(!dest.estVide() && dest.getX() == src.getX())
             return MouvementType.NON_VALIDE;
 
-        //Le code en dessous devrait être factoriser pour toutes les pièces qui peuvent se déplacer verticalement et où on doit checker le premier déplacement.
-        //Y'a juste le pion qui fait exception puisque sa distanceMax change en fonction de si c'est son premier coup ou pas
+        //On promeut un pion s'il se trouve sur la première ou dernière ligne de l'échiquier
+        if (dest.getY() == 0 || dest.getY() == 7){ // 0 et 7 représentent la première et derrière ligne de l'échiquier
+            return MouvementType.PROMOTION;
+        }
 
         if(src.getX() == dest.getX() && ((src.getY() + distanceDeplacementMax == dest.getY()
         || this.premierDeplacement && src.getY() + 2*distanceDeplacementMax == dest.getY()))){
