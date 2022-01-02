@@ -55,7 +55,7 @@ public class Plateau implements ChessController {
 
         MouvementType mouvementTypeActuel = p.mouvementPossible(caseFrom,caseTo);
 
-        if (mouvementTypeActuel == MouvementType.NON_VALIDE || !trajectoireLibre(caseFrom, caseTo)){
+        if (mouvementTypeActuel == MouvementType.NON_VALIDE || (!trajectoireLibre(caseFrom, caseTo) && p.getPieceType() != PieceType.KNIGHT)){
             return false;
         }
 
@@ -67,15 +67,44 @@ public class Plateau implements ChessController {
         view.removePiece(fromX,fromY);
         view.putPiece(p.getPieceType(),p.getColor(),toX,toY);
 
-        //Si le mouvement est une promotion on promeut
+        // Si le mouvement est une promotion on promeut
         if (mouvementTypeActuel == MouvementType.PROMOTION){
             promouvoir(p.getColor(),caseTo);
+        }
+
+        // Si le mouvement est une tentative de petit roque
+        if(mouvementTypeActuel == MouvementType.PETIT_ROQUE){
+            roque(1, toX, toY);
+        }
+
+        // Si le mouvement est une tentative de grand roque
+        if(mouvementTypeActuel == MouvementType.GRAND_ROQUE){
+            roque(-1, toX, toY);
         }
 
         tour++;
 
         return true;
     }
+
+    /**
+     * Permet de déplacer la tour lors du petit et du grand roque, après avoir vérifier si le roque est permis
+     * @param roque vaut 1 si c'est un petit roque, et -1 si c'est un grand roque
+     * @param x x de destination du roi
+     * @param y y de destination du roi
+     */
+    public void roque(int roque, int x, int y){
+        if(plateau[x+roque][y].getPieceCourante().getPieceType() == PieceType.ROOK){
+            Tour tourRoque = (Tour) plateau[x+roque][y].getPieceCourante();
+            if(tourRoque.premierDeplacement){
+                view.removePiece(x+roque, y);
+                view.putPiece(tourRoque.getPieceType(), tourRoque.getColor(), x-roque, y);
+                plateau[x+roque][y].supprimerPiece();
+                plateau[x-roque][y].placerPiece(tourRoque);
+            }
+        }
+    }
+
     public boolean trajectoireLibre(Case src, Case dest){
         int deltaX = Math.abs(src.getX() - dest.getX());
         int deltaY = Math.abs(src.getY() - dest.getY());

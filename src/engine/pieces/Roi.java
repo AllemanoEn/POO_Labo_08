@@ -14,11 +14,37 @@ public class Roi extends PiecePremierDeplacement {
 
     @Override
     public MouvementType mouvementPossible(Case src, Case dest) {
-        if (super.mouvementPossible(src,dest) == MouvementType.NON_VALIDE){
+        if (super.mouvementPossible(src, dest) == MouvementType.NON_VALIDE) {
             return MouvementType.NON_VALIDE;
         }
 
-        return mouvementDirectionnelPossible(src, dest);
+        if (mouvementDirectionnelPossible(src, dest) == MouvementType.CLASSIC) {
+            premierDeplacement = false;
+            return MouvementType.CLASSIC;
+        }
+        if (premierDeplacement) {
+            if (color == PlayerColor.WHITE) {
+                if (dest.getX() == 6 && dest.getY() == 0) {
+                    premierDeplacement = false;
+                    return MouvementType.PETIT_ROQUE;
+                }
+                if (dest.getX() == 1 && dest.getY() == 0) {
+                    premierDeplacement = false;
+                    return MouvementType.GRAND_ROQUE;
+                }
+            }
+            if (color == PlayerColor.BLACK) {
+                if (dest.getX() == 6 && dest.getY() == 7) {
+                    premierDeplacement = false;
+                    return MouvementType.PETIT_ROQUE;
+                }
+                if (dest.getX() == 1 && dest.getY() == 7) {
+                    premierDeplacement = false;
+                    return MouvementType.GRAND_ROQUE;
+                }
+            }
+        }
+        return MouvementType.NON_VALIDE;
     }
 
     @Override
