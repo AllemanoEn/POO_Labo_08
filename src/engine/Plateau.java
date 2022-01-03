@@ -55,6 +55,7 @@ public class Plateau implements ChessController {
 
         MouvementType mouvementTypeActuel = p.mouvementPossible(caseFrom,caseTo);
 
+        // Si le mouvement est non-valide ou si la trajectoire n'est pas libre (pour les pièces autres que cavalier)
         if (mouvementTypeActuel == MouvementType.NON_VALIDE || (!trajectoireLibre(caseFrom, caseTo) && p.getPieceType() != PieceType.KNIGHT)){
             return false;
         }
@@ -67,23 +68,56 @@ public class Plateau implements ChessController {
         view.removePiece(fromX,fromY);
         view.putPiece(p.getPieceType(),p.getColor(),toX,toY);
 
+        // Prise en passant
+        if(caseTo.getPionFantome() != null && p.getPieceType() == PieceType.PAWN){
+            // Position du vrai pion par rapport à la case du pion fantôme
+            // Est inversé si le joueur est noir
+            int pionPosition = -1;
+            if(p.getColor() == PlayerColor.BLACK)
+                pionPosition = 1;
+
+            // Suppresion du vrai pion
+            plateau[toX][toY+pionPosition].supprimerPiece();
+            view.removePiece(toX, toY + pionPosition);
+
+            view.displayMessage("Prise en passant");
+        }
+
         // Si le mouvement est une promotion on promeut
         if (mouvementTypeActuel == MouvementType.PROMOTION){
             promouvoir(p.getColor(),caseTo);
+
+            view.displayMessage("Promotion");
         }
 
         // Si le mouvement est une tentative de petit roque
         if(mouvementTypeActuel == MouvementType.PETIT_ROQUE){
-            roque(1, toX, toY);
+            if(roque(1, toX, toY))
+                view.displayMessage("Petit roque");
         }
 
         // Si le mouvement est une tentative de grand roque
         if(mouvementTypeActuel == MouvementType.GRAND_ROQUE){
-            roque(-1, toX, toY);
+            if(roque(-1, toX, toY))
+                view.displayMessage("Grand roque");
         }
 
         tour++;
 
+        // Vider le plateau de tous les pions fantomes
+        for(int x = 0; x < DIMENSION;++x){
+            for(int y = 0; y < DIMENSION; ++y){
+                plateau[x][y].supprimerPionFantome();
+            }
+        }
+
+        // Si le mouvement est un premier mouvement d'un pion de 2 en avant
+        if(mouvementTypeActuel == MouvementType.EN_PASSANT){
+            // Placer le pion fantome a la case entre la source et la destination
+            plateau[(toX+fromX)/2][(toY+fromY)/2].placerPionFantome((Pion) p);
+
+            view.displayMessage("Premier déplacement d'un pion (avancée de 2)");
+        }
         return true;
     }
 
@@ -93,7 +127,7 @@ public class Plateau implements ChessController {
      * @param x x de destination du roi
      * @param y y de destination du roi
      */
-    public void roque(int roque, int x, int y){
+    public boolean roque(int roque, int x, int y){
         if(plateau[x+roque][y].getPieceCourante().getPieceType() == PieceType.ROOK){
             Tour tourRoque = (Tour) plateau[x+roque][y].getPieceCourante();
             if(tourRoque.premierDeplacement){
@@ -101,8 +135,11 @@ public class Plateau implements ChessController {
                 view.putPiece(tourRoque.getPieceType(), tourRoque.getColor(), x-roque, y);
                 plateau[x+roque][y].supprimerPiece();
                 plateau[x-roque][y].placerPiece(tourRoque);
+
+                return true;
             }
         }
+        return false;
     }
 
     public boolean trajectoireLibre(Case src, Case dest){
