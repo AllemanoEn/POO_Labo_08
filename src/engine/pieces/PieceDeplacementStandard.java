@@ -11,8 +11,10 @@ public abstract class PieceDeplacementStandard extends Piece{
         super(color);
     }
 
+
+
     @Override
-    public MouvementType mouvementPossible(Case src, Case dest) {
+    protected MouvementType mouvementPossible(Case src, Case dest) {
 
         if (super.mouvementPossible(src, dest) == MouvementType.NON_VALIDE){
             return MouvementType.NON_VALIDE;

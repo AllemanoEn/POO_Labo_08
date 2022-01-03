@@ -16,7 +16,7 @@ public class Pion extends PiecePremierDeplacement{
     }
 
     @Override
-    public MouvementType mouvementPossible(Case src, Case dest) {
+    protected MouvementType mouvementPossible(Case src, Case dest) {
 
         if (super.mouvementPossible(src,dest) == MouvementType.NON_VALIDE){
             return MouvementType.NON_VALIDE;
@@ -32,28 +32,22 @@ public class Pion extends PiecePremierDeplacement{
 
         // Deplacement standard de 1 en avant
         if(src.getX() == dest.getX() && src.getY() + distanceDeplacementMax == dest.getY()){
-            premierDeplacement = false;
             return MouvementType.CLASSIQUE;
         }
 
         // Premier déplacement de 2 en avant
         if(src.getX() == dest.getX() && this.premierDeplacement && src.getY() + 2*distanceDeplacementMax == dest.getY()){
-            premierDeplacement = false;
             return MouvementType.EN_PASSANT;
         }
+
         // Deplacement en diagonale en avant de 1, pour une prise
         if((src.getX() == dest.getX()+1 || src.getX() == dest.getX()-1) && src.getY() + distanceDeplacementMax == dest.getY() && !dest.estVide()){
-            premierDeplacement = false;
+
             return MouvementType.CLASSIQUE;
         }
 
         return MouvementType.NON_VALIDE;
 
-    }
-
-    @Override
-    public boolean deplacer(Case dest) {
-        return false;
     }
 
     @Override

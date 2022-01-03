@@ -53,16 +53,16 @@ public class Plateau implements ChessController {
             return false;
         }
 
-        MouvementType mouvementTypeActuel = p.mouvementPossible(caseFrom,caseTo);
+
+        MouvementType mouvementTypeActuel = MouvementType.NON_VALIDE;
+        if(trajectoireLibre(caseFrom, caseTo) || p.getPieceType() == PieceType.KNIGHT){
+            mouvementTypeActuel = p.deplacer(caseFrom, caseTo);
+        }
 
         // Si le mouvement est non-valide ou si la trajectoire n'est pas libre (pour les pièces autres que cavalier)
         if (mouvementTypeActuel == MouvementType.NON_VALIDE || (!trajectoireLibre(caseFrom, caseTo) && p.getPieceType() != PieceType.KNIGHT)){
             return false;
         }
-
-        //Il faudrait utiliser la méthode "déplacer" de la pièce ???
-        caseFrom.supprimerPiece();
-        caseTo.placerPiece(p);
 
         view.displayMessage("");
         view.removePiece(fromX,fromY);
