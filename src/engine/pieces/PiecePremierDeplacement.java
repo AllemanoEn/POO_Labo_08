@@ -18,4 +18,6 @@ public abstract class PiecePremierDeplacement extends PieceDeplacementStandard{
         premierDeplacement = false;
         return mouvementType;
     }
+
+
 }

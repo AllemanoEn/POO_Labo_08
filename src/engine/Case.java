@@ -17,6 +17,14 @@ public class Case {
         this.x = x;
         this.y = y;
     }
+    Case(Case c){
+        this.x = c.x;
+        this.y = c.y;
+        if(c.pieceCourante != null)
+            this.pieceCourante = c.pieceCourante.clone();
+        if(c.pionFantome != null)
+            this.pionFantome = (Pion) c.pionFantome.clone();
+    }
 
     public boolean estVide(){
         return (pieceCourante == null && pionFantome == null);

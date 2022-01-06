@@ -16,7 +16,7 @@ public class Pion extends PiecePremierDeplacement{
     }
 
     @Override
-    protected MouvementType mouvementPossible(Case src, Case dest) {
+    public MouvementType mouvementPossible(Case src, Case dest) {
 
         if (super.mouvementPossible(src,dest) == MouvementType.NON_VALIDE){
             return MouvementType.NON_VALIDE;
@@ -26,7 +26,7 @@ public class Pion extends PiecePremierDeplacement{
             return MouvementType.NON_VALIDE;
 
         //On promeut un pion s'il se trouve sur la première ou dernière ligne de l'échiquier
-        if (dest.getY() == 0 || dest.getY() == 7){ // 0 et 7 représentent la première et derrière ligne de l'échiquier
+        if ((dest.getY() == 0 || dest.getY() == 7) && (dest.getY() == src.getY() + distanceDeplacementMax)){ // 0 et 7 représentent la première et derrière ligne de l'échiquier
             return MouvementType.PROMOTION;
         }
 
@@ -37,7 +37,7 @@ public class Pion extends PiecePremierDeplacement{
 
         // Premier déplacement de 2 en avant
         if(src.getX() == dest.getX() && this.premierDeplacement && src.getY() + 2*distanceDeplacementMax == dest.getY()){
-            return MouvementType.EN_PASSANT;
+            return MouvementType.DOUBLE;
         }
 
         // Deplacement en diagonale en avant de 1, pour une prise
@@ -48,6 +48,13 @@ public class Pion extends PiecePremierDeplacement{
 
         return MouvementType.NON_VALIDE;
 
+    }
+
+    @Override
+    public Piece clone() {
+        Pion p = new Pion(this.color);
+        p.premierDeplacement = this.premierDeplacement;
+        return p;
     }
 
     @Override

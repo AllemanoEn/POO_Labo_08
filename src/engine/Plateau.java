@@ -54,15 +54,35 @@ public class Plateau implements ChessController {
         }
 
 
-        MouvementType mouvementTypeActuel = MouvementType.NON_VALIDE;
-        if(trajectoireLibre(caseFrom, caseTo) || p.getPieceType() == PieceType.KNIGHT){
-            mouvementTypeActuel = p.deplacer(caseFrom, caseTo);
-        }
+        MouvementType mouvementTypeActuel = p.mouvementPossible(caseFrom, caseTo);
 
-        // Si le mouvement est non-valide ou si la trajectoire n'est pas libre (pour les pièces autres que cavalier)
-        if (mouvementTypeActuel == MouvementType.NON_VALIDE || (!trajectoireLibre(caseFrom, caseTo) && p.getPieceType() != PieceType.KNIGHT)){
+        // Si le mouvement est non-valide
+        if (mouvementTypeActuel == MouvementType.NON_VALIDE){
             return false;
         }
+
+        // Si la trajectoire est libre ou que la pièce est un cavalier
+
+        if (trajectoireLibre(caseFrom, caseTo, plateau) || p.getPieceType() == PieceType.KNIGHT) {
+            Case[][] plateauTestEchec = dupliquerPlateau();
+            Case caseFromTestEchec = plateauTestEchec[fromX][fromY];
+            Case caseToTestEchec = plateauTestEchec[toX][toY];
+            Piece pTestEchec = caseFromTestEchec.getPieceCourante();
+
+            pTestEchec.deplacer(caseFromTestEchec, caseToTestEchec);
+
+            if (echec(pTestEchec.getColor(), plateauTestEchec)) {
+                view.displayMessage("Interdit de mettre en echec son roi");
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+
+
+        mouvementTypeActuel = p.deplacer(caseFrom, caseTo);
+
 
         view.displayMessage("");
         view.removePiece(fromX,fromY);
@@ -112,13 +132,49 @@ public class Plateau implements ChessController {
         }
 
         // Si le mouvement est un premier mouvement d'un pion de 2 en avant
-        if(mouvementTypeActuel == MouvementType.EN_PASSANT){
+        if(mouvementTypeActuel == MouvementType.DOUBLE){
             // Placer le pion fantome a la case entre la source et la destination
             plateau[(toX+fromX)/2][(toY+fromY)/2].placerPionFantome((Pion) p);
 
             view.displayMessage("Premier déplacement d'un pion (avancée de 2)");
         }
+
+
+        if(echec(p.getColor() == PlayerColor.BLACK?PlayerColor.WHITE:PlayerColor.BLACK, plateau)){
+            view.displayMessage("Echec");
+        }
+
         return true;
+    }
+
+    public Case[][] dupliquerPlateau(){
+        Case[][] plateauDuplique = new Case[DIMENSION][DIMENSION];
+        for(int x = 0; x < DIMENSION; x ++){
+            for(int y = 0; y < DIMENSION; y ++){
+                plateauDuplique[x][y] = new Case(plateau[x][y]);
+            }
+        }
+        return plateauDuplique;
+    }
+
+    public boolean echec(PlayerColor color, Case[][] plateau){
+        Case caseRoi = trouverRoi(color, plateau);
+        for(int x = 0; x < DIMENSION; ++x){
+            for(int y = 0; y < DIMENSION; ++y){
+                Piece piece = plateau[x][y].getPieceCourante();
+                if(piece != null){
+                    if(piece.getColor() != color){
+
+                        if(piece.mouvementPossible(plateau[x][y], caseRoi) != MouvementType.NON_VALIDE){
+                            if(trajectoireLibre(plateau[x][y], caseRoi, plateau) || piece.getPieceType() == PieceType.KNIGHT){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -142,7 +198,7 @@ public class Plateau implements ChessController {
         return false;
     }
 
-    public boolean trajectoireLibre(Case src, Case dest){
+    public boolean trajectoireLibre(Case src, Case dest, Case[][] plateau){
         int deltaX = Math.abs(src.getX() - dest.getX());
         int deltaY = Math.abs(src.getY() - dest.getY());
 
@@ -241,5 +297,18 @@ public class Plateau implements ChessController {
             view.putPiece(pionBlanc.getPieceType(), pionBlanc.getColor(), col, 1);
             view.putPiece(pionNoir.getPieceType(), pionNoir.getColor(), col, 6);
         }
+    }
+    private Case trouverRoi(PlayerColor color, Case[][] plateau){
+        for(int x = 0; x < DIMENSION;++x){
+            for(int y = 0; y < DIMENSION; ++y){
+                Piece p = plateau[x][y].getPieceCourante();
+                if(p == null)
+                    continue;
+                if(p.getPieceType() == PieceType.KING && p.getColor() == color){
+                    return plateau[x][y];
+                }
+            }
+        }
+        return null;
     }
 }

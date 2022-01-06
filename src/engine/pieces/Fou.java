@@ -13,7 +13,7 @@ public class Fou extends PieceDeplacementStandard{
     }
 
     @Override
-    protected MouvementType mouvementPossible(Case src, Case dest) {
+    public MouvementType mouvementPossible(Case src, Case dest) {
         if (super.mouvementPossible(src,dest) == MouvementType.NON_VALIDE){
             return MouvementType.NON_VALIDE;
         }
@@ -22,6 +22,11 @@ public class Fou extends PieceDeplacementStandard{
     }
 
 
+    @Override
+    public Piece clone() {
+        Fou p = new Fou(this.color);
+        return p;
+    }
 
     @Override
     public String toString() {

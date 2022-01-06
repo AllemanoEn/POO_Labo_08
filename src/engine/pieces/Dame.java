@@ -13,7 +13,7 @@ public class Dame extends PieceDeplacementStandard{
     }
 
     @Override
-    protected MouvementType mouvementPossible(Case src, Case dest) {
+    public MouvementType mouvementPossible(Case src, Case dest) {
         if (super.mouvementPossible(src,dest) == MouvementType.NON_VALIDE){
             return MouvementType.NON_VALIDE;
         }
@@ -21,6 +21,11 @@ public class Dame extends PieceDeplacementStandard{
         return mouvementDirectionnelPossible(src, dest);
     }
 
+    @Override
+    public Piece clone() {
+        Dame p = new Dame(this.color);
+        return p;
+    }
 
     @Override
     public String toString() {

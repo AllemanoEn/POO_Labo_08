@@ -11,7 +11,7 @@ public class Cavalier extends Piece{
     }
 
     @Override
-    protected MouvementType mouvementPossible(Case src, Case dest) {
+    public MouvementType mouvementPossible(Case src, Case dest) {
         if (super.mouvementPossible(src,dest) == MouvementType.NON_VALIDE){
             return MouvementType.NON_VALIDE;
         }
@@ -26,6 +26,11 @@ public class Cavalier extends Piece{
         return MouvementType.NON_VALIDE;
     }
 
+    @Override
+    public Piece clone() {
+        Cavalier p = new Cavalier(this.color);
+        return p;
+    }
 
     @Override
     public String toString() {

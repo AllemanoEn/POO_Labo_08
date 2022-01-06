@@ -7,7 +7,7 @@ import engine.Case;
 
 public abstract class Piece implements ChessView.UserChoice{
     //J'ai enlever le abstract de la méthode pour implémenter ce test. Car il devra être executé pour toutes les pièces
-    protected MouvementType mouvementPossible(Case src, Case dest){
+    public MouvementType mouvementPossible(Case src, Case dest){
         //Permet de ne pas pouvoir manger ces propres pièces
         if(dest.getPieceCourante() != null && dest.getPieceCourante().getColor() == this.color){
             return MouvementType.NON_VALIDE;
@@ -24,6 +24,7 @@ public abstract class Piece implements ChessView.UserChoice{
         dest.placerPiece(this);
         return mouvementType;
     };
+
 
     public abstract String toString();
 
@@ -42,4 +43,6 @@ public abstract class Piece implements ChessView.UserChoice{
     public String textValue() {
         return null;
     }
+
+    public abstract Piece clone();
 }

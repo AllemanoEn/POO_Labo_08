@@ -13,7 +13,7 @@ public class Roi extends PiecePremierDeplacement {
     }
 
     @Override
-    protected MouvementType mouvementPossible(Case src, Case dest) {
+    public MouvementType mouvementPossible(Case src, Case dest) {
         if (super.mouvementPossible(src, dest) == MouvementType.NON_VALIDE) {
             return MouvementType.NON_VALIDE;
         }
@@ -43,6 +43,12 @@ public class Roi extends PiecePremierDeplacement {
         return MouvementType.NON_VALIDE;
     }
 
+    @Override
+    public Piece clone() {
+        Roi p = new Roi(this.color);
+        p.premierDeplacement = this.premierDeplacement;
+        return p;
+    }
     @Override
     public String toString() {
         return "Roi";

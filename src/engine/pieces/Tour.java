@@ -13,13 +13,19 @@ public class Tour extends PiecePremierDeplacement {
     }
 
     @Override
-    protected MouvementType mouvementPossible(Case src, Case dest) {
+    public MouvementType mouvementPossible(Case src, Case dest) {
         if (super.mouvementPossible(src,dest) == MouvementType.NON_VALIDE){
             return MouvementType.NON_VALIDE;
         }
         return mouvementDirectionnelPossible(src, dest);
     }
 
+    @Override
+    public Piece clone() {
+        Tour p = new Tour(this.color);
+        p.premierDeplacement = this.premierDeplacement;
+        return p;
+    }
 
     @Override
     public String toString() {
