@@ -38,6 +38,8 @@ public class Plateau implements ChessController {
 
     @Override
     public boolean move(int fromX, int fromY, int toX, int toY) {
+        view.displayMessage("");
+
         Case caseFrom = plateau[fromX][fromY];
         Case caseTo = plateau[toX][toY];
 
@@ -154,10 +156,13 @@ public class Plateau implements ChessController {
             view.displayMessage("Echec");
         }
 
-
-        view.displayMessage("");
         view.removePiece(fromX,fromY);
-        view.putPiece(p.getPieceType(),p.getColor(),toX,toY);
+
+        // Dans le cas d'une promotion on n'aimerait pas remettre un pion sur la dernière case
+        // On a donc pas besoin de d'appeler view.putPiece puisqu'on s'en charge déjà dans la fonction promouvoir
+        if(mouvementTypeActuel != MouvementType.PROMOTION){
+            view.putPiece(p.getPieceType(),p.getColor(),toX,toY);
+        }
 
         tour++;
 
@@ -253,7 +258,11 @@ public class Plateau implements ChessController {
         Piece tour = new Tour(color);
         Piece fou = new Fou(color);
 
-        Piece pieceSelectionee = view.askUser("Promotion", "Choisir une pièce pour la promotion",dame,cavalier,tour,fou);
+        Piece pieceSelectionee = null;
+
+        while (pieceSelectionee == null){
+            pieceSelectionee = view.askUser("Promotion", "Choisir une pièce pour la promotion",dame,cavalier,tour,fou);
+        }
 
         int x = dest.getX(), y = dest.getY();
 
