@@ -38,8 +38,6 @@ public class Plateau implements ChessController {
 
     @Override
     public boolean move(int fromX, int fromY, int toX, int toY) {
-        view.displayMessage("");
-
         Case caseFrom = plateau[fromX][fromY];
         Case caseTo = plateau[toX][toY];
 
@@ -69,7 +67,6 @@ public class Plateau implements ChessController {
                 view.displayMessage("Interdit de mettre en echec son roi");
                 return false;
             }
-
         }
         else{
             return false;
@@ -99,7 +96,12 @@ public class Plateau implements ChessController {
             view.displayMessage("Prise en passant");
         }
 
+        // Si le mouvement est une promotion on promeut
+        if (mouvementTypeActuel == MouvementType.PROMOTION){
+            promouvoir(p.getColor(),caseTo);
 
+            view.displayMessage("Promotion");
+        }
 
         // Si le mouvement est une tentative de petit roque
         if(mouvementTypeActuel == MouvementType.PETIT_ROQUE){
@@ -153,16 +155,9 @@ public class Plateau implements ChessController {
         }
 
 
+        view.displayMessage("");
         view.removePiece(fromX,fromY);
         view.putPiece(p.getPieceType(),p.getColor(),toX,toY);
-
-        // Si le mouvement est une promotion on promeut
-        if (mouvementTypeActuel == MouvementType.PROMOTION){
-            promouvoir(p.getColor(),caseTo);
-
-            view.displayMessage("Promotion");
-        }
-
 
         tour++;
 
