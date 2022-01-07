@@ -41,9 +41,13 @@ public class Pion extends PiecePremierDeplacement{
         }
 
         // Deplacement en diagonale en avant de 1, pour une prise
-        if((src.getX() == dest.getX()+1 || src.getX() == dest.getX()-1) && src.getY() + distanceDeplacementMax == dest.getY() && !dest.estVide()){
-
+        if((src.getX() == dest.getX()+1 || src.getX() == dest.getX()-1) && src.getY() + distanceDeplacementMax == dest.getY() && dest.aUnePiece()){
             return MouvementType.CLASSIQUE;
+        }
+
+        // Deplacement en diagonale en avant de 1, pour une prise
+        if((src.getX() == dest.getX()+1 || src.getX() == dest.getX()-1) && src.getY() + distanceDeplacementMax == dest.getY() && dest.aUnPionFantome()){
+            return MouvementType.EN_PASSANT;
         }
 
         return MouvementType.NON_VALIDE;

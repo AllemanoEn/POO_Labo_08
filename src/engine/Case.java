@@ -29,6 +29,12 @@ public class Case {
     public boolean estVide(){
         return (pieceCourante == null && pionFantome == null);
     }
+    public boolean aUnePiece(){
+        return pieceCourante != null;
+    }
+    public boolean aUnPionFantome(){
+        return pionFantome != null;
+    }
 
     public Piece getPieceCourante() {return pieceCourante;}
     public Pion getPionFantome() {return pionFantome;}

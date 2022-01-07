@@ -53,14 +53,6 @@ public class Plateau implements ChessController {
             return false;
         }
 
-
-        MouvementType mouvementTypeActuel = p.mouvementPossible(caseFrom, caseTo);
-
-        // Si le mouvement est non-valide
-        if (mouvementTypeActuel == MouvementType.NON_VALIDE){
-            return false;
-        }
-
         // Si la trajectoire est libre ou que la pièce est un cavalier
 
         if (trajectoireLibre(caseFrom, caseTo, plateau) || p.getPieceType() == PieceType.KNIGHT) {
@@ -71,7 +63,7 @@ public class Plateau implements ChessController {
 
             pTestEchec.deplacer(caseFromTestEchec, caseToTestEchec);
 
-            if (echec(pTestEchec.getColor(), plateauTestEchec)) {
+            if (echec(pTestEchec.getColor() == PlayerColor.BLACK?PlayerColor.WHITE:PlayerColor.BLACK, trouverRoi(p.getColor(), plateauTestEchec), plateauTestEchec)) {
                 view.displayMessage("Interdit de mettre en echec son roi");
                 return false;
             }
@@ -81,15 +73,16 @@ public class Plateau implements ChessController {
         }
 
 
-        mouvementTypeActuel = p.deplacer(caseFrom, caseTo);
+        MouvementType mouvementTypeActuel = p.deplacer(caseFrom, caseTo);
 
+        // Si le mouvement est non-valide
+        if (mouvementTypeActuel == MouvementType.NON_VALIDE){
+            return false;
+        }
 
-        view.displayMessage("");
-        view.removePiece(fromX,fromY);
-        view.putPiece(p.getPieceType(),p.getColor(),toX,toY);
 
         // Prise en passant
-        if(caseTo.getPionFantome() != null && p.getPieceType() == PieceType.PAWN){
+        if(mouvementTypeActuel == MouvementType.EN_PASSANT){
             // Position du vrai pion par rapport à la case du pion fantôme
             // Est inversé si le joueur est noir
             int pionPosition = -1;
@@ -112,18 +105,34 @@ public class Plateau implements ChessController {
 
         // Si le mouvement est une tentative de petit roque
         if(mouvementTypeActuel == MouvementType.PETIT_ROQUE){
-            if(roque(1, toX, toY))
-                view.displayMessage("Petit roque");
+            if(!echec(p.getColor()==PlayerColor.BLACK?PlayerColor.WHITE:PlayerColor.BLACK, plateau[toX-1][toY], plateau)) {
+                if (roque(1, toX, toY))
+                    view.displayMessage("Petit roque");
+            }
+            else{
+                view.displayMessage("Roque interdit : la case parcouru met le roi en échec");
+                return false;
+            }
         }
 
         // Si le mouvement est une tentative de grand roque
         if(mouvementTypeActuel == MouvementType.GRAND_ROQUE){
-            if(plateau[toX-1][toY].estVide())
-                if(roque(-2, toX, toY))
-                    view.displayMessage("Grand roque");
+            if(!echec(p.getColor()==PlayerColor.BLACK?PlayerColor.WHITE:PlayerColor.BLACK, plateau[toX+1][toY], plateau)) {
+                if (plateau[toX - 1][toY].estVide()) {
+                    if (roque(-2, toX, toY))
+                        view.displayMessage("Grand roque");
+                }
+                else{
+                    view.displayMessage("Roque interdit : le chemin entre le roi et la tour n'est pas libre");
+                    return false;
+                }
+            }
+            else{
+                view.displayMessage("Roque interdit : la case parcouru met le roi en échec");
+                return false;
+            }
         }
 
-        tour++;
 
         // Vider le plateau de tous les pions fantomes
         for(int x = 0; x < DIMENSION;++x){
@@ -141,9 +150,16 @@ public class Plateau implements ChessController {
         }
 
 
-        if(echec(p.getColor() == PlayerColor.BLACK?PlayerColor.WHITE:PlayerColor.BLACK, plateau)){
+        if(echec(p.getColor(), trouverRoi(p.getColor() == PlayerColor.BLACK?PlayerColor.WHITE:PlayerColor.BLACK, plateau), plateau)){
             view.displayMessage("Echec");
         }
+
+
+        view.displayMessage("");
+        view.removePiece(fromX,fromY);
+        view.putPiece(p.getPieceType(),p.getColor(),toX,toY);
+
+        tour++;
 
         return true;
     }
@@ -158,16 +174,22 @@ public class Plateau implements ChessController {
         return plateauDuplique;
     }
 
-    public boolean echec(PlayerColor color, Case[][] plateau){
-        Case caseRoi = trouverRoi(color, plateau);
+    /**
+     * DEtermine si une case est en échec
+     * @param color Couleur de l'équipe attaquante
+     * @param c Case cible
+     * @param plateau Plateau
+     * @return
+     */
+    public boolean echec(PlayerColor color, Case c, Case[][] plateau){
         for(int x = 0; x < DIMENSION; ++x){
             for(int y = 0; y < DIMENSION; ++y){
                 Piece piece = plateau[x][y].getPieceCourante();
                 if(piece != null){
-                    if(piece.getColor() != color){
+                    if(piece.getColor() == color){
 
-                        if(piece.mouvementPossible(plateau[x][y], caseRoi) != MouvementType.NON_VALIDE){
-                            if(trajectoireLibre(plateau[x][y], caseRoi, plateau) || piece.getPieceType() == PieceType.KNIGHT){
+                        if(piece.mouvementPossible(plateau[x][y], c) != MouvementType.NON_VALIDE){
+                            if(trajectoireLibre(plateau[x][y], c, plateau) || piece.getPieceType() == PieceType.KNIGHT){
                                 return true;
                             }
                         }
@@ -189,9 +211,10 @@ public class Plateau implements ChessController {
             Tour tourRoque = (Tour) plateau[x+roque][y].getPieceCourante();
             if(tourRoque.premierDeplacement){
                 view.removePiece(x+roque, y);
-                view.putPiece(tourRoque.getPieceType(), tourRoque.getColor(), x-(roque/2), y);
+                int tourPosition = x - (roque / Math.abs(roque));
+                view.putPiece(tourRoque.getPieceType(), tourRoque.getColor(), tourPosition, y);
                 plateau[x+roque][y].supprimerPiece();
-                plateau[x-(roque/2)][y].placerPiece(tourRoque);
+                plateau[tourPosition][y].placerPiece(tourRoque);
 
                 return true;
             }
@@ -215,7 +238,7 @@ public class Plateau implements ChessController {
         int y = src.getY() + dirY;
         for(int i = 1; i < Math.max(deltaX, deltaY); i++){
 
-            if(!plateau[x][y].estVide())
+            if(plateau[x][y].aUnePiece())
                 return false;
             x+= dirX;
             y+= dirY;
@@ -246,12 +269,20 @@ public class Plateau implements ChessController {
         tour = 1;
         echec = false;
 
+        // Vider le plateau de tous les pions fantomes
+        for(int x = 0; x < DIMENSION;++x){
+            for(int y = 0; y < DIMENSION; ++y){
+                plateau[x][y].supprimerPionFantome();
+            }
+        }
+
+
         // On vide l'echiquier
-        for (int col = 0; col < DIMENSION; ++col) {
-            for (int row = 0; row < DIMENSION; ++row) {
-                Case caseCourrante = plateau[col][row];
+        for (int x = 0; x < DIMENSION; ++x) {
+            for (int y = 0; y < DIMENSION; ++y) {
+                Case caseCourrante = plateau[x][y];
                 if (!caseCourrante.estVide()) {
-                    plateau[col][row].supprimerPiece();
+                    plateau[x][y].supprimerPiece();
                 }
             }
         }

@@ -6,5 +6,6 @@ public enum MouvementType {
     GRAND_ROQUE,
     PETIT_ROQUE,
     PROMOTION,
-    DOUBLE
+    DOUBLE,
+    EN_PASSANT
 }
