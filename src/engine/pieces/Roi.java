@@ -27,7 +27,7 @@ public class Roi extends PiecePremierDeplacement {
                 if (dest.getX() == 6 && dest.getY() == 0) {
                     return MouvementType.PETIT_ROQUE;
                 }
-                if (dest.getX() == 1 && dest.getY() == 0) {
+                if (dest.getX() == 2 && dest.getY() == 0) {
                     return MouvementType.GRAND_ROQUE;
                 }
             }
@@ -35,7 +35,7 @@ public class Roi extends PiecePremierDeplacement {
                 if (dest.getX() == 6 && dest.getY() == 7) {
                     return MouvementType.PETIT_ROQUE;
                 }
-                if (dest.getX() == 1 && dest.getY() == 7) {
+                if (dest.getX() == 2 && dest.getY() == 7) {
                     return MouvementType.GRAND_ROQUE;
                 }
             }

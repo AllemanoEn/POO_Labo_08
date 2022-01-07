@@ -118,8 +118,9 @@ public class Plateau implements ChessController {
 
         // Si le mouvement est une tentative de grand roque
         if(mouvementTypeActuel == MouvementType.GRAND_ROQUE){
-            if(roque(-1, toX, toY))
-                view.displayMessage("Grand roque");
+            if(plateau[toX-1][toY].estVide())
+                if(roque(-2, toX, toY))
+                    view.displayMessage("Grand roque");
         }
 
         tour++;
@@ -188,9 +189,9 @@ public class Plateau implements ChessController {
             Tour tourRoque = (Tour) plateau[x+roque][y].getPieceCourante();
             if(tourRoque.premierDeplacement){
                 view.removePiece(x+roque, y);
-                view.putPiece(tourRoque.getPieceType(), tourRoque.getColor(), x-roque, y);
+                view.putPiece(tourRoque.getPieceType(), tourRoque.getColor(), x-(roque/2), y);
                 plateau[x+roque][y].supprimerPiece();
-                plateau[x-roque][y].placerPiece(tourRoque);
+                plateau[x-(roque/2)][y].placerPiece(tourRoque);
 
                 return true;
             }
