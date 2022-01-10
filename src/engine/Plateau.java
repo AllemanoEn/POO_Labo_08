@@ -73,7 +73,7 @@ public class Plateau implements ChessController {
                 }
             }
 
-
+            // Test si le mouvement met le roi en echec
             if (echec(pTestEchec.getColor() == PlayerColor.BLACK ? PlayerColor.WHITE : PlayerColor.BLACK, trouverRoi(p.getColor(), plateauTestEchec), plateauTestEchec)) {
                 view.displayMessage("Interdit de mettre en echec son roi");
                 return false;
