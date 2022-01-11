@@ -6,7 +6,13 @@ import chess.PlayerColor;
 import engine.Case;
 
 public abstract class Piece implements ChessView.UserChoice{
-    //J'ai enlever le abstract de la méthode pour implémenter ce test. Car il devra être executé pour toutes les pièces
+    PieceType pieceType;
+    PlayerColor color;
+
+    public Piece(PlayerColor color) {
+        this.color = color;
+    }
+
     public MouvementType mouvementPossible(Case src, Case dest){
         //Permet de ne pas pouvoir manger ces propres pièces
         if(dest.getPieceCourante() != null && dest.getPieceCourante().getColor() == this.color){
@@ -23,26 +29,18 @@ public abstract class Piece implements ChessView.UserChoice{
         src.supprimerPiece();
         dest.placerPiece(this);
         return mouvementType;
-    };
-
-
-    public abstract String toString();
-
-    PieceType pieceType;
-    PlayerColor color;
-
-    public Piece(PlayerColor color) {
-        this.color = color;
     }
 
     public PieceType getPieceType(){return pieceType;}
 
     public PlayerColor getColor(){return  color;}
 
+    public abstract Piece clone();
+
     @Override
     public String textValue() {
-        return null;
+        return toString();
     }
 
-    public abstract Piece clone();
+    public abstract String toString();
 }

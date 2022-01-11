@@ -11,8 +11,6 @@ public abstract class PieceDeplacementStandard extends Piece{
         super(color);
     }
 
-
-
     @Override
     public MouvementType mouvementPossible(Case src, Case dest) {
 

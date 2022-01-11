@@ -4,7 +4,7 @@ import chess.PlayerColor;
 import engine.Case;
 
 public abstract class PiecePremierDeplacement extends PieceDeplacementStandard{
-    public boolean premierDeplacement = true;
+    boolean premierDeplacement = true;
 
     public PiecePremierDeplacement(PlayerColor color) {
         super(color);
@@ -19,5 +19,7 @@ public abstract class PiecePremierDeplacement extends PieceDeplacementStandard{
         return mouvementType;
     }
 
-
+    public boolean isPremierDeplacement() {
+        return premierDeplacement;
+    }
 }

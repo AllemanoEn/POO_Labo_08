@@ -16,7 +16,6 @@ public class Plateau implements ChessController {
     private int tour;
     private Case[][] plateau;
     private ChessView view;
-    private boolean echec;
 
     /**
      * Constructeur, crée le plateau de jeu
@@ -166,7 +165,7 @@ public class Plateau implements ChessController {
         return true;
     }
 
-    public Case[][] dupliquerPlateau() {
+    private Case[][] dupliquerPlateau() {
         Case[][] plateauDuplique = new Case[DIMENSION][DIMENSION];
         for (int x = 0; x < DIMENSION; x++) {
             for (int y = 0; y < DIMENSION; y++) {
@@ -213,7 +212,7 @@ public class Plateau implements ChessController {
     public boolean roque(int roque, int x, int y) {
         if (plateau[x + roque][y].getPieceCourante().getPieceType() == PieceType.ROOK) {
             Tour tourRoque = (Tour) plateau[x + roque][y].getPieceCourante();
-            if (tourRoque.premierDeplacement) {
+            if (tourRoque.isPremierDeplacement()) {
                 view.removePiece(x + roque, y);
                 int tourPosition = x - (roque / Math.abs(roque));
                 view.putPiece(tourRoque.getPieceType(), tourRoque.getColor(), tourPosition, y);
@@ -275,7 +274,6 @@ public class Plateau implements ChessController {
     @Override
     public void newGame() {
         tour = 1;
-        echec = false;
 
         // Vider le plateau de tous les pions fantomes
         for (int x = 0; x < DIMENSION; ++x) {

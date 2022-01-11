@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>9</zoom_level>
+  <zoom_level>8</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>441</x>
+      <x>320</x>
       <y>0</y>
-      <w>360</w>
-      <h>99</h>
+      <w>320</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>&lt; &lt; interface &gt; &gt;
 ChessController
@@ -21,56 +21,72 @@ ChessController
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>441</x>
-      <y>162</y>
-      <w>360</w>
-      <h>90</h>
+      <x>312</x>
+      <y>136</y>
+      <w>336</w>
+      <h>200</h>
     </coordinates>
     <panel_attributes>Plateau
 -
+_-DIMENSION = 8 : int_
 - tour : int
+- plateau : Case[][]
+- view : ChessView 
 -
 + start(view : ChessView) : void
 + newGame() : void
-+ move(fromX : int, fromY : int, toX : int, toY : int) : booleen</panel_attributes>
++ move(fromX : int, fromY : int, toX : int, toY : int) : booleen
++ echec(PlayerColor color, Case c, Case[][] plateau) : boolean
++ roque(int roque, int x, int y) : boolean
++ trajectoireLibre(Case src, Case dest, Case[][] plateau) : boolean
+-
+- promouvoir(PlayerColor color, Case dest) : void
+- trouverRoi(PlayerColor color, Case[][] plateau) : Case
+- dupliquerPlateau() : Case[][]</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>612</x>
-      <y>90</y>
-      <w>27</w>
-      <h>90</h>
+      <x>472</x>
+      <y>80</y>
+      <w>24</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>531</x>
-      <y>351</y>
-      <w>189</w>
-      <h>108</h>
+      <x>376</x>
+      <y>424</y>
+      <w>208</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>Case
 -
 - x : int
 - y : int
+- pieceCourante : Piece
+- pionFantome : Pion
 -
 + estVide() : Boolean
++ aUnePiece() : boolean 
++ aUnPionFantome() : boolean
++ placerPionFantome(Pion pion) : void
 + placerPiece(piece : Piece) : void
-+ supprimerPiece() : Piece</panel_attributes>
++ supprimerPiece() : Piece
++ supprimerPionFantome() : Pion</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>612</x>
-      <y>243</y>
-      <w>72</w>
-      <h>126</h>
+      <x>464</x>
+      <y>328</y>
+      <w>64</w>
+      <h>112</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=64
@@ -81,41 +97,44 @@ contient</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>495</x>
-      <y>558</y>
-      <w>261</w>
-      <h>90</h>
+      <x>344</x>
+      <y>656</y>
+      <w>232</w>
+      <h>136</h>
     </coordinates>
     <panel_attributes>/Piece/
 -
+pieceType : PieceType
+color : PlayerColor
 -
-+ mouvementPossible(dest : Case): booleen
-+ deplacer(dest : Case): boolean
-+ testValue() : String
++ mouvementPossible(Case src, Case dest) : MouvementType
++ deplacer(Case src, Case des): MouvementType
+/+ clone() : Piece/
++ textValue() : String
 + toString() : String</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>612</x>
-      <y>450</y>
-      <w>72</w>
-      <h>126</h>
+      <x>448</x>
+      <y>584</y>
+      <w>64</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=0.1
 m2=1
 contient</panel_attributes>
-    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>855</x>
-      <y>315</y>
-      <w>126</w>
-      <h>63</h>
+      <x>664</x>
+      <y>504</y>
+      <w>112</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>&lt; &lt; interface &gt; &gt;
 UserChoice
@@ -127,10 +146,10 @@ UserChoice
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>747</x>
-      <y>369</y>
-      <w>252</w>
-      <h>234</h>
+      <x>568</x>
+      <y>552</y>
+      <w>224</w>
+      <h>208</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.
 implémente</panel_attributes>
@@ -139,10 +158,10 @@ implémente</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>999</x>
-      <y>315</y>
-      <w>99</w>
-      <h>126</h>
+      <x>792</x>
+      <y>504</y>
+      <w>88</w>
+      <h>112</h>
     </coordinates>
     <panel_attributes>&lt; &lt; enum &gt; &gt;
 PieceType
@@ -159,10 +178,10 @@ KING
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>747</x>
-      <y>432</y>
-      <w>360</w>
-      <h>198</h>
+      <x>568</x>
+      <y>608</y>
+      <w>320</w>
+      <h>176</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=1
@@ -173,10 +192,10 @@ est un</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1116</x>
-      <y>315</y>
-      <w>99</w>
-      <h>72</h>
+      <x>896</x>
+      <y>504</y>
+      <w>88</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>&lt; &lt; enum &gt; &gt;
 PlayerColor
@@ -188,10 +207,10 @@ WHITE</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>747</x>
-      <y>378</y>
-      <w>504</w>
-      <h>270</h>
+      <x>568</x>
+      <y>560</y>
+      <w>448</w>
+      <h>240</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=1
@@ -202,10 +221,10 @@ appartient à</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>657</x>
-      <y>909</y>
-      <w>90</w>
-      <h>36</h>
+      <x>600</x>
+      <y>1072</y>
+      <w>80</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>Pion
 -
@@ -215,10 +234,10 @@ appartient à</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>774</x>
-      <y>909</y>
-      <w>81</w>
-      <h>36</h>
+      <x>704</x>
+      <y>1072</y>
+      <w>72</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>Tour
 -
@@ -228,10 +247,10 @@ appartient à</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>594</x>
-      <y>792</y>
-      <w>81</w>
-      <h>36</h>
+      <x>544</x>
+      <y>968</y>
+      <w>72</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>Fou
 -
@@ -241,10 +260,10 @@ appartient à</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>459</x>
-      <y>702</y>
-      <w>81</w>
-      <h>36</h>
+      <x>312</x>
+      <y>848</y>
+      <w>72</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>Cavalier
 -
@@ -254,10 +273,10 @@ appartient à</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>486</x>
-      <y>792</y>
-      <w>81</w>
-      <h>36</h>
+      <x>448</x>
+      <y>968</y>
+      <w>72</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>Dame
 -
@@ -267,10 +286,10 @@ appartient à</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>882</x>
-      <y>909</y>
-      <w>81</w>
-      <h>36</h>
+      <x>800</x>
+      <y>1072</y>
+      <w>72</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>Roi
 -
@@ -280,16 +299,16 @@ appartient à</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>252</x>
-      <y>441</y>
-      <w>108</w>
-      <h>144</h>
+      <x>104</x>
+      <y>592</y>
+      <w>96</w>
+      <h>128</h>
     </coordinates>
     <panel_attributes>&lt; &lt; enum &gt; &gt;
 MouvementType
 -
 CLASSIQUE
-INTERDIT
+NON_VALIDE
 PETIT_ROQUE
 GRAND_ROQUE
 PROMOTION
@@ -300,106 +319,109 @@ DOUBLE</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>351</x>
-      <y>549</y>
-      <w>162</w>
-      <h>45</h>
+      <x>192</x>
+      <y>696</y>
+      <w>168</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=0.n
 m2=0.n
 </panel_attributes>
-    <additional_attributes>10.0;20.0;160.0;20.0</additional_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0;100.0;40.0;190.0;40.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>639</x>
-      <y>702</y>
-      <w>189</w>
-      <h>45</h>
+      <x>472</x>
+      <y>848</y>
+      <w>384</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>/PieceDeplacementStandard/
 -
-- distanceDeplacementMax : int
--</panel_attributes>
+distanceDeplacementMax : int
+directionType : DirectionType
+-
++ mouvementDirectionnelPossible(Case src, Case dest) : MouvementType</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>720</x>
-      <y>792</y>
-      <w>198</w>
-      <h>45</h>
+      <x>656</x>
+      <y>968</y>
+      <w>176</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>/PiecePremierDeplacement/
 -
-- premierDeplacement : Boolean</panel_attributes>
+- premierDeplacement : boolean
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>711</x>
-      <y>738</y>
-      <w>126</w>
-      <h>72</h>
+      <x>648</x>
+      <y>904</y>
+      <w>112</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;30.0;120.0;30.0;120.0;60.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0;120.0;50.0;120.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>612</x>
-      <y>639</y>
-      <w>126</w>
-      <h>81</h>
+      <x>448</x>
+      <y>784</y>
+      <w>224</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;50.0;120.0;50.0;120.0;70.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0;260.0;60.0;260.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>495</x>
-      <y>639</y>
-      <w>144</w>
-      <h>81</h>
+      <x>344</x>
+      <y>784</y>
+      <w>128</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>140.0;10.0;140.0;50.0;10.0;50.0;10.0;70.0</additional_attributes>
+    <additional_attributes>140.0;10.0;140.0;60.0;10.0;60.0;10.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>621</x>
-      <y>738</y>
-      <w>117</w>
-      <h>72</h>
+      <x>568</x>
+      <y>904</y>
+      <w>104</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>110.0;10.0;110.0;30.0;10.0;30.0;10.0;60.0</additional_attributes>
+    <additional_attributes>110.0;10.0;110.0;50.0;10.0;50.0;10.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>513</x>
-      <y>738</y>
-      <w>225</w>
-      <h>72</h>
+      <x>472</x>
+      <y>904</y>
+      <w>200</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>230.0;10.0;230.0;30.0;10.0;30.0;10.0;60.0</additional_attributes>
+    <additional_attributes>230.0;10.0;230.0;50.0;10.0;50.0;10.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>810</x>
-      <y>828</y>
-      <w>135</w>
-      <h>99</h>
+      <x>736</x>
+      <y>1000</y>
+      <w>120</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0;130.0;60.0;130.0;90.0</additional_attributes>
@@ -407,10 +429,10 @@ m2=0.n
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>810</x>
-      <y>828</y>
-      <w>27</w>
-      <h>99</h>
+      <x>736</x>
+      <y>1000</y>
+      <w>24</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
@@ -418,58 +440,54 @@ m2=0.n
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>972</x>
-      <y>693</y>
-      <w>189</w>
-      <h>162</h>
+      <x>936</x>
+      <y>864</y>
+      <w>104</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>&lt; &lt; enum &gt; &gt;
 Direction
 -
-HAUT
-HAUT_DROITE
-DROITE
-BAS_DROITE
-BAS
-BAS_GAUCHE
-GAUCHE
-HAUT_GAUCHE</panel_attributes>
+DIAGONALE
+DROIT
+TOUS
+NON_DEFINI</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>819</x>
-      <y>711</y>
-      <w>171</w>
-      <h>36</h>
+      <x>848</x>
+      <y>880</y>
+      <w>104</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m2=0.n
 m1=1.n</panel_attributes>
-    <additional_attributes>170.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>171</x>
-      <y>369</y>
-      <w>504</w>
-      <h>585</h>
+      <x>56</x>
+      <y>440</y>
+      <w>560</w>
+      <h>672</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=0.1
 m2=0.1
 contient pion en passant</panel_attributes>
-    <additional_attributes>540.0;620.0;10.0;620.0;10.0;10.0;400.0;10.0</additional_attributes>
+    <additional_attributes>680.0;810.0;10.0;810.0;10.0;10.0;400.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>693</x>
-      <y>828</y>
-      <w>144</w>
-      <h>99</h>
+      <x>632</x>
+      <y>1000</y>
+      <w>128</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>140.0;10.0;140.0;60.0;10.0;60.0;10.0;90.0</additional_attributes>

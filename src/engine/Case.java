@@ -5,8 +5,6 @@ import engine.pieces.Pion;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Case {
-
-
     private final int x;
     private final int y;
 
@@ -37,7 +35,6 @@ public class Case {
     }
 
     public Piece getPieceCourante() {return pieceCourante;}
-    public Pion getPionFantome() {return pionFantome;}
 
     public void placerPiece(Piece piece){
         pieceCourante = piece;
