@@ -22,7 +22,7 @@ public class Roi extends PiecePremierDeplacement {
         super(color);
         pieceType = PieceType.KING;
         directionType = DirectionType.TOUS;
-        distanceDeplacementMax = 1;
+        distanceDeplacementMax = 2;
     }
 
     @Override
@@ -32,8 +32,10 @@ public class Roi extends PiecePremierDeplacement {
         if (mouvementType == MouvementType.NON_VALIDE) {
             return MouvementType.NON_VALIDE;
         }
+        int deltaX = Math.abs(src.getX() - dest.getX());
+        int deltaY = Math.abs(src.getY() - dest.getY());
 
-        if (mouvementType == MouvementType.CLASSIQUE) {
+        if (mouvementType == MouvementType.CLASSIQUE && deltaX <=1 && deltaY <= 1) {
             premierDeplacement = false;
             return MouvementType.CLASSIQUE;
         }
