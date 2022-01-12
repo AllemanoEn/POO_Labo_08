@@ -1,3 +1,16 @@
+/* ---------------------------
+Laboratoire : Labo 08: Jeu d'échecs
+Fichier : Tour.java
+Auteur(s) : Romano Malo et Enzo Allemano
+Date : 12.01.2022
+
+But : Implémentation de la pièce : tour
+
+Remarque(s) : -
+
+Compilateur : jdk1.8.0_221
+
+--------------------------- */
 package engine.pieces;
 
 import chess.PieceType;

@@ -1,3 +1,16 @@
+/* ---------------------------
+Laboratoire : Labo 08: Jeu d'échecs
+Fichier : PieceDeplacementStandard.java
+Auteur(s) : Romano Malo et Enzo Allemano
+Date : 12.01.2022
+
+But : Déclaration de la classe abstraite : PieceDeplacementStandard
+
+Remarque(s) : Toutes les pièces utilisées dans le jeu hérite de cette classe, sauf le cavalier
+
+Compilateur : jdk1.8.0_221
+
+--------------------------- */
 package engine.pieces;
 
 import chess.PlayerColor;

@@ -1,3 +1,16 @@
+/* ---------------------------
+Laboratoire : Labo 08: Jeu d'échecs
+Fichier : Cavalier.java
+Auteur(s) : Romano Malo et Enzo Allemano
+Date : 12.01.2022
+
+But : Implémentation de la pièce : cavalier
+
+Remarque(s) : -
+
+Compilateur : jdk1.8.0_221
+
+--------------------------- */
 package engine.pieces;
 
 import chess.PieceType;
@@ -28,8 +41,7 @@ public class Cavalier extends Piece{
 
     @Override
     public Piece clone() {
-        Cavalier p = new Cavalier(this.color);
-        return p;
+        return new Cavalier(this.color);
     }
 
     @Override
