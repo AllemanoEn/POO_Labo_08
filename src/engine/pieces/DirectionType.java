@@ -17,5 +17,4 @@ public enum DirectionType {
     DIAGONALE,
     DROIT,
     TOUS,
-    NON_DEFINI
 }

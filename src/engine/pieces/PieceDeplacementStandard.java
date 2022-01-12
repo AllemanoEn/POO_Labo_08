@@ -45,9 +45,4 @@ public abstract class PieceDeplacementStandard extends Piece{
         }
         return MouvementType.NON_VALIDE;
     }
-
-    public MouvementType mouvementDirectionnelPossible(Case src, Case dest){
-
-        return MouvementType.NON_VALIDE;
-    }
 }
