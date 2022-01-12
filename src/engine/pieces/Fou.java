@@ -18,7 +18,7 @@ public class Fou extends PieceDeplacementStandard{
             return MouvementType.NON_VALIDE;
         }
 
-        return mouvementDirectionnelPossible(src, dest);
+        return super.mouvementPossible(src, dest);
     }
 
 

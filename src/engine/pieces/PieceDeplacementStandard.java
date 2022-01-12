@@ -17,15 +17,12 @@ public abstract class PieceDeplacementStandard extends Piece{
         if (super.mouvementPossible(src, dest) == MouvementType.NON_VALIDE){
             return MouvementType.NON_VALIDE;
         }
-        return MouvementType.CLASSIQUE;
-    }
 
-    public MouvementType mouvementDirectionnelPossible(Case src, Case dest){
         int deltaX = Math.abs(src.getX() - dest.getX());
         int deltaY = Math.abs(src.getY() - dest.getY());
 
         if((directionType == DirectionType.DROIT || directionType == DirectionType.TOUS) && (src.getX() != dest.getX() ^ src.getY() != dest.getY())){
-            if(Math.max(deltaX, deltaY) <= distanceDeplacementMax)
+            if(Math.max(deltaX, deltaY) <= Math.abs(distanceDeplacementMax))
                 return MouvementType.CLASSIQUE;
         }
 
@@ -33,6 +30,10 @@ public abstract class PieceDeplacementStandard extends Piece{
             if(deltaX <= distanceDeplacementMax)
                 return MouvementType.CLASSIQUE;
         }
+        return MouvementType.NON_VALIDE;
+    }
+
+    public MouvementType mouvementDirectionnelPossible(Case src, Case dest){
 
         return MouvementType.NON_VALIDE;
     }

@@ -17,7 +17,7 @@ public class Tour extends PiecePremierDeplacement {
         if (super.mouvementPossible(src,dest) == MouvementType.NON_VALIDE){
             return MouvementType.NON_VALIDE;
         }
-        return mouvementDirectionnelPossible(src, dest);
+        return super.mouvementPossible(src, dest);
     }
 
     @Override

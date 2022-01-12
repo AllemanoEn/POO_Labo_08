@@ -18,7 +18,7 @@ public class Dame extends PieceDeplacementStandard{
             return MouvementType.NON_VALIDE;
         }
 
-        return mouvementDirectionnelPossible(src, dest);
+        return super.mouvementPossible(src, dest);
     }
 
     @Override

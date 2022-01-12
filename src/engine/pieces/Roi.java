@@ -14,11 +14,13 @@ public class Roi extends PiecePremierDeplacement {
 
     @Override
     public MouvementType mouvementPossible(Case src, Case dest) {
-        if (super.mouvementPossible(src, dest) == MouvementType.NON_VALIDE) {
+        MouvementType mouvementType = super.mouvementPossible(src, dest);
+
+        if (mouvementType == MouvementType.NON_VALIDE) {
             return MouvementType.NON_VALIDE;
         }
 
-        if (mouvementDirectionnelPossible(src, dest) == MouvementType.CLASSIQUE) {
+        if (mouvementType == MouvementType.CLASSIQUE) {
             premierDeplacement = false;
             return MouvementType.CLASSIQUE;
         }
