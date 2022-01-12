@@ -1,3 +1,16 @@
+/* ---------------------------
+Laboratoire : Labo 08: Jeu d'échecs
+Fichier : Case.java
+Auteur(s) : Romano Malo et Enzo Allemano
+Date : 12.01.2022
+
+But : Déclaration de la classe : Case
+
+Remarque(s) : Naviguabilité /!\ -> Une case connaît la pièce qui se trouve dessus, pas l'inverse
+
+Compilateur : jdk1.8.0_221
+
+--------------------------- */
 package engine;
 
 import engine.pieces.Piece;

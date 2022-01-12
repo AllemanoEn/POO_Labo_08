@@ -1,3 +1,16 @@
+/* ---------------------------
+Laboratoire : Labo 08: Jeu d'échecs
+Fichier : Dame.java
+Auteur(s) : Romano Malo et Enzo Allemano
+Date : 12.01.2022
+
+But : Implémentation de la pièce : cavalier
+
+Remarque(s) : -
+
+Compilateur : jdk1.8.0_221
+
+--------------------------- */
 package engine.pieces;
 
 import chess.PieceType;
@@ -23,8 +36,7 @@ public class Dame extends PieceDeplacementStandard{
 
     @Override
     public Piece clone() {
-        Dame p = new Dame(this.color);
-        return p;
+        return new Dame(this.color);
     }
 
     @Override

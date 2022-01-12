@@ -1,3 +1,17 @@
+/* ---------------------------
+Laboratoire : Labo 08: Jeu d'échecs
+Fichier : Plateau.java
+Auteur(s) : Romano Malo et Enzo Allemano
+Date : 12.01.2022
+
+But : Déclaration de la classe : Plateau
+
+Remarque(s) : Permet d'assurer le déroulement d'une partie en fonction des règles implémentée.
+              Hérite de ChessController
+
+Compilateur : jdk1.8.0_221
+
+--------------------------- */
 package engine;
 
 import chess.ChessController;
@@ -11,11 +25,11 @@ import java.util.Arrays;
 
 public class Plateau implements ChessController {
 
-    private static final int DIMENSION = 8;
+    private static final int DIMENSION = 8; //Défini la dimension standard d'un échiquier
 
-    private int tour;
-    private Case[][] plateau;
-    private ChessView view;
+    private int tour;           //Compte le nombre de tour durant une partie
+    private Case[][] plateau;   //Echiquier de la partie courante
+    private ChessView view;     //Necessaire à l'UI
 
     /**
      * Constructeur, crée le plateau de jeu
@@ -165,6 +179,10 @@ public class Plateau implements ChessController {
         return true;
     }
 
+    /**
+     * Permet de faire une copie de l'échiquier actuel
+     * @return une copie de l'échiquier actuel
+     */
     private Case[][] dupliquerPlateau() {
         Case[][] plateauDuplique = new Case[DIMENSION][DIMENSION];
         for (int x = 0; x < DIMENSION; x++) {
@@ -176,7 +194,7 @@ public class Plateau implements ChessController {
     }
 
     /**
-     * DEtermine si une case est en échec
+     * Determine si une case est en échec
      *
      * @param color   Couleur de l'équipe attaquante
      * @param c       Case cible
@@ -225,6 +243,13 @@ public class Plateau implements ChessController {
         return false;
     }
 
+    /**
+     * Permet de définir si une trajectoir est libre ou non sur un échiquier, en fonction d'une case source et d'une case destination
+     * @param src       case source
+     * @param dest      case destination
+     * @param plateau   échiquier en question
+     * @return true si libre, false sinon
+     */
     public boolean trajectoireLibre(Case src, Case dest, Case[][] plateau) {
         int deltaX = Math.abs(src.getX() - dest.getX());
         int deltaY = Math.abs(src.getY() - dest.getY());
@@ -249,6 +274,11 @@ public class Plateau implements ChessController {
         return true;
     }
 
+    /**
+     * Permet de promouvoir un pion en une autre pièce choisi par l'utilisateur
+     * @param color Couleur du joueur qui joue son tour
+     * @param dest  Case de destination du pion promu
+     */
     private void promouvoir(PlayerColor color, Case dest) {
         // Les nouvelles pieces possibles
         Piece dame = new Dame(color);
@@ -337,6 +367,12 @@ public class Plateau implements ChessController {
         }
     }
 
+    /**
+     * Permet de trouver le roi d'une couleur donnée sur échiquier donné
+     * @param color     Couleur du roi à trouver
+     * @param plateau   Echiquier sur lequel le roi doit être trouvé
+     * @return la case où se trouve le roi de la couleur voulue
+     */
     private Case trouverRoi(PlayerColor color, Case[][] plateau) {
         for (int x = 0; x < DIMENSION; ++x) {
             for (int y = 0; y < DIMENSION; ++y) {
