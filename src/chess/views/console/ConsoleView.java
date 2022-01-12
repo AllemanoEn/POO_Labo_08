@@ -30,7 +30,7 @@ public class ConsoleView extends BaseView<String> {
   }
 
   private final static Scanner scanner = new Scanner(System.in);
-  private final static Pattern movementPattern = Pattern.compile("[a-h][1-8][a-h][1-8]");
+  private final static Pattern movementPattern = Pattern.compile("[a-h][1-8][a-h][1-8]|exit");
   private final static String EMPTY_CELL = " ";
   private final static String UNKNOWN_CELL = "?";
 
@@ -50,6 +50,7 @@ public class ConsoleView extends BaseView<String> {
     controller.newGame();
     while (true) { // TODO: ajouter un exit (comportement repris de la V1)
       printBoard();
+      System.out.println("Type \"exit\" to exit the game");
       askMovement();
     }
   }
@@ -155,6 +156,10 @@ public class ConsoleView extends BaseView<String> {
     while (!ok) {
       String in = askPattern(movementPattern, "Next move?");
       System.out.println(in);
+      if(in.equals("exit")){
+        System.out.println("Program ended");
+        System.exit(0);
+      }
       ok = controller.move(charCoordinateToIndex(in.charAt(0)), intCoordinateToIndex(in.charAt(1)),
           charCoordinateToIndex(in.charAt(2)), intCoordinateToIndex(in.charAt(3)));
 

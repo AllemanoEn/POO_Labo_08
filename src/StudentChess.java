@@ -14,6 +14,7 @@ Compilateur : jdk1.8.0_221
 import chess.ChessController;
 import chess.ChessView;
 import chess.views.gui.GUIView;
+import chess.views.console.ConsoleView;
 import engine.Plateau;
 
 public class StudentChess {
