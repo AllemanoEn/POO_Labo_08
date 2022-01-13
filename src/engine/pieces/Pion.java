@@ -28,8 +28,6 @@ public class Pion extends PiecePremierDeplacement{
             distanceDeplacementMax *= (-1);
     }
 
-
-
     @Override
     public MouvementType mouvementPossible(Case src, Case dest) {
 
@@ -66,7 +64,6 @@ public class Pion extends PiecePremierDeplacement{
         }
 
         return MouvementType.NON_VALIDE;
-
     }
 
     @Override

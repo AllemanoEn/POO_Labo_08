@@ -32,6 +32,7 @@ public class Roi extends PiecePremierDeplacement {
         if (mouvementType == MouvementType.NON_VALIDE) {
             return MouvementType.NON_VALIDE;
         }
+
         int deltaX = Math.abs(src.getX() - dest.getX());
         int deltaY = Math.abs(src.getY() - dest.getY());
 
@@ -39,6 +40,7 @@ public class Roi extends PiecePremierDeplacement {
             premierDeplacement = false;
             return MouvementType.CLASSIQUE;
         }
+
         if (premierDeplacement) {
             if (color == PlayerColor.WHITE) {
                 if (dest.getX() == 6 && dest.getY() == 0) {

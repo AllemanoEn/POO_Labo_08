@@ -19,14 +19,21 @@ import chess.PlayerColor;
 import engine.Case;
 
 public abstract class Piece implements ChessView.UserChoice{
-    PieceType pieceType;
-    PlayerColor color;
+    PieceType pieceType;    //Type de la pièce
+    PlayerColor color;      //Couleur de la pièce
 
     public Piece(PlayerColor color) {
         this.color = color;
     }
 
+    /**
+     * Determine si un mouvement est possible depuis une case source vers une case destination
+     * @param src Case source
+     * @param dest Case destination
+     * @return un MouvementType en fonction du mouvement
+     */
     public MouvementType mouvementPossible(Case src, Case dest){
+
         //Permet de ne pas pouvoir manger ces propres pièces
         if(dest.getPieceCourante() != null && dest.getPieceCourante().getColor() == this.color){
             return MouvementType.NON_VALIDE;
@@ -34,6 +41,12 @@ public abstract class Piece implements ChessView.UserChoice{
         return MouvementType.CLASSIQUE;
     }
 
+    /**
+     * Permet de déplacer une pièce depuis une case source vers une case destination si le mouvement est valide
+     * @param src Case source
+     * @param dest Case destination
+     * @return un MouvementType en fonction du mouvement
+     */
     public MouvementType deplacer(Case src, Case dest){
         MouvementType mouvementType = mouvementPossible(src, dest);
         if(mouvementType == MouvementType.NON_VALIDE)
@@ -44,8 +57,16 @@ public abstract class Piece implements ChessView.UserChoice{
         return mouvementType;
     }
 
+    /**
+     * Getter du type de la pièce
+     * @return le type de la pièce
+     */
     public PieceType getPieceType(){return pieceType;}
 
+    /**
+     * Getter de la couleur de la pièce
+     * @return la couleur de la pièce
+     */
     public PlayerColor getColor(){return  color;}
 
     public abstract Piece clone();

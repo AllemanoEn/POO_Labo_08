@@ -17,7 +17,7 @@ import chess.PlayerColor;
 import engine.Case;
 
 public abstract class PiecePremierDeplacement extends PieceDeplacementStandard{
-    boolean premierDeplacement = true;
+    boolean premierDeplacement = true;  // Permet de déterminer si une pièce a déjà effectué son premier mouvement
 
     public PiecePremierDeplacement(PlayerColor color) {
         super(color);
@@ -32,6 +32,10 @@ public abstract class PiecePremierDeplacement extends PieceDeplacementStandard{
         return mouvementType;
     }
 
+    /**
+     * Getter de la varible premierDeplacement
+     * @return la valeur de premierDeplacement
+     */
     public boolean isPremierDeplacement() {
         return premierDeplacement;
     }

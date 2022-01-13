@@ -17,8 +17,8 @@ import chess.PlayerColor;
 import engine.Case;
 
 public abstract class PieceDeplacementStandard extends Piece{
-    int distanceDeplacementMax;
-    DirectionType directionType;
+    int distanceDeplacementMax;     // Définis la distance maxmium qu'une pièce peux parcourir
+    DirectionType directionType;    // Définis le type de direction que peux utiliser une pièce
 
     public PieceDeplacementStandard(PlayerColor color) {
         super(color);
@@ -43,6 +43,7 @@ public abstract class PieceDeplacementStandard extends Piece{
             if(deltaX <= distanceDeplacementMax)
                 return MouvementType.CLASSIQUE;
         }
+
         return MouvementType.NON_VALIDE;
     }
 }

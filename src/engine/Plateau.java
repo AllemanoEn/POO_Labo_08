@@ -199,7 +199,7 @@ public class Plateau implements ChessController {
      * @param color   Couleur de l'équipe attaquante
      * @param c       Case cible
      * @param plateau Plateau
-     * @return
+     * @return vrai si elle est en échec, faux sinon
      */
     public boolean echec(PlayerColor color, Case c, Case[][] plateau) {
         for (int x = 0; x < DIMENSION; ++x) {
@@ -311,7 +311,6 @@ public class Plateau implements ChessController {
                 plateau[x][y].supprimerPionFantome();
             }
         }
-
 
         // On vide l'echiquier
         for (int x = 0; x < DIMENSION; ++x) {

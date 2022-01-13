@@ -492,4 +492,17 @@ contient pion en passant</panel_attributes>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>140.0;10.0;140.0;60.0;10.0;60.0;10.0;90.0</additional_attributes>
   </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>704</x>
+      <y>0</y>
+      <w>176</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Malo Romano &amp; Enzo Allemano
+POO - Labo 8 Échecs
+13.01.2022</panel_attributes>
+    <additional_attributes/>
+  </element>
 </diagram>
